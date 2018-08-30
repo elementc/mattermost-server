@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"strconv"
 	"time"
+	"strings"
 
 	"github.com/mattermost/mattermost-server/v5/app"
 	"github.com/mattermost/mattermost-server/v5/mlog"
@@ -52,6 +53,19 @@ func createPost(c *Context, w http.ResponseWriter, r *http.Request) {
 			hasPermission = true
 		}
 	}
+			//                (brothers.Announcements)                          (beta-zeta.Announcements) 
+	 if post.ChannelId == "f93etx6oxtrbmfmas8xryhq6bo" || post.ChannelId == "ox9ioff1wjyxtnq58zhr8yeath" { // || with your announce channel ids
+		 hasPermission = false
+		 if user, err := c.App.GetUser(c.App.Session.UserId);
+		 	err == nil && strings.Contains(user.Roles, "system_admin"){
+			 hasPermission = true
+		 } else if channel, err := c.App.GetChannel(post.ChannelId); err == nil {
+			 		if teamMember, err := c.App.GetTeamMember(channel.TeamId, user.Id);
+		 				err == nil && strings.Contains(teamMember.Roles, "team_admin") {
+			 			hasPermission = true
+			 }
+		 }
+	 }
 
 	if !hasPermission {
 		c.SetPermissionError(model.PERMISSION_CREATE_POST)
