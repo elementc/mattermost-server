@@ -48,7 +48,7 @@ GOFLAGS ?= $(GOFLAGS:)
 GO=go
 DELVE=dlv
 GO_LINKER_FLAGS ?= -ldflags \
-				   "-extldflags '-static'\
+				   "-s -extldflags '-static'\
 					  -X github.com/mattermost/mattermost-server/model.BuildNumber=$(BUILD_NUMBER)\
 				    -X 'github.com/mattermost/mattermost-server/model.BuildDate=$(BUILD_DATE)'\
 				    -X github.com/mattermost/mattermost-server/model.BuildHash=$(BUILD_HASH)\
