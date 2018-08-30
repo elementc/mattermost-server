@@ -56,6 +56,7 @@ GOPATH ?= $(shell go env GOPATH)
 GOFLAGS ?= $(GOFLAGS:) -mod=vendor
 GO=go
 DELVE=dlv
+LDFLAGS += -s -extldflags "-static"
 LDFLAGS += -X "github.com/mattermost/mattermost-server/v5/model.BuildNumber=$(BUILD_NUMBER)"
 LDFLAGS += -X "github.com/mattermost/mattermost-server/v5/model.BuildDate=$(BUILD_DATE)"
 LDFLAGS += -X "github.com/mattermost/mattermost-server/v5/model.BuildHash=$(BUILD_HASH)"
