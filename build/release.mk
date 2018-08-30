@@ -3,7 +3,7 @@ dist: | check-style test package
 
 build-linux:
 	@echo Build Linux amd64
-	env GOOS=linux GOARCH=amd64 $(GO) install -i $(GOFLAGS) $(GO_LINKER_FLAGS) ./...
+	env CGO_ENABLED=0 GOOS=linux GOARCH=amd64 $(GO) install -i $(GOFLAGS) $(GO_LINKER_FLAGS) ./...
 
 build-osx:
 	@echo Build OSX amd64
